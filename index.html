@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Система заявок на консультацію</title>
+  <title data-i18n="app_title">Система заявок на консультацію</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366F1'/%3E%3Cpath d='M75 42.5a25 25 0 0 1-2.6 11 25 25 0 0 1-22.4 13.9 25 25 0 0 1-11-2.6L25 70l5.6-16.8A25 25 0 0 1 28 42.5a25 25 0 0 1 13.9-22.4A25 25 0 0 1 53 17.5h1.5A25 25 0 0 1 78 41v1.5z' fill='white'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <!-- Header -->
@@ -13,12 +15,23 @@
     <div class="header-container">
       <div class="logo">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-        <h1>Консультації</h1>
+        <h1 data-i18n="app_title">Консультації</h1>
       </div>
       <div class="header-actions">
-        <button id="btn-theme" class="btn btn-secondary" title="Змінити тему">🌓</button>
-        <button id="btn-reset" class="btn btn-secondary">Скинути демо-дані</button>
-        <button id="btn-new-request" class="btn btn-primary">Нова заявка</button>
+        <div class="user-profile">
+          <i data-lucide="user" style="width: 16px; height: 16px; color: var(--text-muted);"></i>
+          <input type="text" id="nickname-input" class="nickname-input" placeholder="Ваш нікнейм" data-i18n-placeholder="ph_nickname">
+        </div>
+        <button id="btn-lang" class="btn btn-secondary btn-icon" title="Змінити мову" style="font-size: 0.8rem; font-weight: 700;">UK</button>
+        <button id="btn-theme" class="btn btn-secondary btn-icon" title="Змінити тему"><i data-lucide="moon"></i></button>
+        <button id="btn-reset" class="btn btn-secondary" style="gap: 0.5rem;">
+          <i data-lucide="refresh-cw" style="width:16px;height:16px;"></i> 
+          <span data-i18n="btn_reset">Скинути демо-дані</span>
+        </button>
+        <button id="btn-new-request" class="btn btn-primary" style="gap: 0.5rem;">
+          <i data-lucide="plus" style="width:16px;height:16px;"></i> 
+          <span data-i18n="btn_new">Нова заявка</span>
+        </button>
       </div>
     </div>
   </header>
@@ -27,19 +40,19 @@
   <section class="dashboard">
     <div class="stat-card total">
       <div class="stat-info">
-        <h3>Всього заявок</h3>
+        <h3 data-i18n="stat_total">Всього заявок</h3>
         <p id="stat-total">0</p>
       </div>
     </div>
     <div class="stat-card pending">
       <div class="stat-info">
-        <h3>Очікують відповіді</h3>
+        <h3 data-i18n="stat_pending">Очікують відповіді</h3>
         <p id="stat-pending">0</p>
       </div>
     </div>
     <div class="stat-card confirmed">
       <div class="stat-info">
-        <h3>Підтверджені</h3>
+        <h3 data-i18n="stat_confirmed">Підтверджені</h3>
         <p id="stat-confirmed">0</p>
       </div>
     </div>
@@ -49,23 +62,27 @@
   <main class="main-content">
     <div class="controls">
       <div class="filters">
+        <div style="position: relative; display: flex; align-items: center;">
+          <i data-lucide="search" style="position: absolute; left: 10px; width: 16px; height: 16px; color: var(--text-muted);"></i>
+          <input type="text" id="search-input" class="text-input" style="padding-left: 2.25rem; border-radius: var(--radius-sm); max-width: 200px;" placeholder="Пошук..." data-i18n-placeholder="ph_search">
+        </div>
         <select id="filter-status" class="select-input">
-          <option value="All">Всі статуси</option>
-          <option value="Draft">Чернетки</option>
-          <option value="Submitted">Подані (очікують)</option>
-          <option value="Confirmed">Підтверджені</option>
-          <option value="Cancelled">Скасовані</option>
+          <option value="All" data-i18n="filter_all_status">Всі статуси</option>
+          <option value="Draft" data-i18n="status_draft">Чернетки</option>
+          <option value="Submitted" data-i18n="status_submitted">Подані (очікують)</option>
+          <option value="Confirmed" data-i18n="status_confirmed">Підтверджені</option>
+          <option value="Cancelled" data-i18n="status_cancelled">Скасовані</option>
         </select>
         <select id="filter-subject" class="select-input">
-          <option value="All">Всі предмети</option>
+          <option value="All" data-i18n="filter_all_subjects">Всі предмети</option>
         </select>
       </div>
       <div class="sorting">
         <select id="sort-by" class="select-input">
-          <option value="date-asc">Дата зустрічі (за зростанням)</option>
-          <option value="date-desc">Дата зустрічі (за спаданням)</option>
-          <option value="created-desc">Спочатку нові</option>
-          <option value="created-asc">Спочатку старі</option>
+          <option value="date-asc" data-i18n="sort_date_asc">Дата зустрічі (за зростанням)</option>
+          <option value="date-desc" data-i18n="sort_date_desc">Дата зустрічі (за спаданням)</option>
+          <option value="created-desc" data-i18n="sort_created_desc">Спочатку нові</option>
+          <option value="created-asc" data-i18n="sort_created_asc">Спочатку старі</option>
         </select>
       </div>
     </div>
@@ -74,7 +91,9 @@
       <!-- Cards rendered via JS -->
     </div>
     <div id="empty-state" class="empty-state hidden">
-      <p>Заявок не знайдено</p>
+      <h3 data-i18n="empty_title" style="margin-bottom: 0.5rem; color: var(--text-main);">Заявок поки немає</h3>
+      <p data-i18n="empty_subtitle" style="margin-bottom: 2rem;">Створіть свою першу заявку, щоб почати</p>
+      <pre id="ascii-canvas" style="font-family: monospace; font-size: 14px; line-height: 1.2; text-align: left; display: inline-block; color: var(--primary);"></pre>
     </div>
   </main>
 
@@ -83,45 +102,63 @@
     <div class="modal-overlay" id="modal-overlay"></div>
     <div class="modal-content">
       <div class="modal-header">
-        <h2 id="modal-title">Нова заявка</h2>
-        <button id="btn-close-modal" class="btn-icon">&times;</button>
+        <h2 id="modal-title" data-i18n="modal_new_title">Нова заявка</h2>
+        <button id="btn-close-modal" class="btn-icon"><i data-lucide="x"></i></button>
       </div>
       <form id="request-form">
         <input type="hidden" id="form-id">
         <input type="hidden" id="form-status" value="Draft">
         <div class="form-group">
-          <label for="form-subject">Предмет <span class="required">*</span></label>
-          <input type="text" id="form-subject" list="subject-list" class="text-input" placeholder="Наприклад, Електродинаміка">
+          <label for="form-author"><span data-i18n="lbl_author">Автор</span></label>
+          <input type="text" id="form-author" class="text-input" disabled data-i18n-placeholder="ph_author" placeholder="Автор">
+        </div>
+        <div class="form-group">
+          <label for="form-subject"><span data-i18n="lbl_subject">Предмет</span> <span class="required">*</span></label>
+          <input type="text" id="form-subject" list="subject-list" class="text-input" placeholder="Наприклад, Електродинаміка" data-i18n-placeholder="ph_subject">
+          <span class="error-text hidden" id="err-subject"></span>
           <datalist id="subject-list">
-            <option value="Електродинаміка">
-            <option value="Схемотехніка">
-            <option value="Фізика НВЧ">
-            <option value="Вища математика">
+            <!-- Populated via JS -->
           </datalist>
         </div>
         <div class="form-group">
-          <label for="form-topic">Тема запиту <span class="required">*</span></label>
-          <textarea id="form-topic" class="text-input" placeholder="Коротко опишіть питання (5-300 символів)" minlength="5" maxlength="300"></textarea>
+          <label for="form-topic"><span data-i18n="lbl_topic">Тема запиту</span> <span class="required">*</span></label>
+          <textarea id="form-topic" class="text-input" placeholder="Коротко опишіть питання (5-300 символів)" data-i18n-placeholder="ph_topic" minlength="5" maxlength="300"></textarea>
+          <span class="error-text hidden" id="err-topic"></span>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label for="form-date">Бажана дата <span class="required">*</span></label>
+            <label for="form-date"><span data-i18n="lbl_date">Бажана дата</span> <span class="required">*</span></label>
             <input type="date" id="form-date" class="text-input">
+            <span class="error-text hidden" id="err-date"></span>
           </div>
           <div class="form-group">
-            <label for="form-time">Бажаний час (08:30 - 18:00) <span class="required">*</span></label>
+            <label for="form-time"><span data-i18n="lbl_time">Бажаний час (08:30 - 18:00)</span> <span class="required">*</span></label>
             <input type="time" id="form-time" class="text-input" min="08:30" max="18:00">
+            <span class="error-text hidden" id="err-time"></span>
           </div>
         </div>
-        <div id="form-errors" class="form-errors hidden"></div>
         <div class="modal-actions" id="modal-actions">
-          <button type="button" id="btn-save-draft" class="btn btn-secondary">Зберегти чернетку</button>
-          <button type="submit" id="btn-submit-request" class="btn btn-primary">Подати заявку</button>
+          <button type="button" id="btn-save-draft" class="btn btn-secondary" data-i18n="btn_save_draft">Зберегти чернетку</button>
+          <button type="submit" id="btn-submit-request" class="btn btn-primary" data-i18n="btn_submit">Подати заявку</button>
         </div>
       </form>
     </div>
   </div>
 
+  <!-- Confirm Modal -->
+  <div id="modal-confirm" class="modal hidden">
+    <div class="modal-overlay" id="confirm-overlay"></div>
+    <div class="modal-content" style="max-width: 400px; text-align: center; padding: 2rem;">
+      <i data-lucide="help-circle" style="width: 48px; height: 48px; color: var(--primary); margin: 0 auto 1rem;"></i>
+      <h3 style="margin-bottom: 1rem; font-size: 1.25rem;" id="confirm-message">Ви впевнені?</h3>
+      <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+        <button id="btn-confirm-cancel" class="btn btn-secondary" data-i18n="btn_cancel">Скасувати</button>
+        <button id="btn-confirm-ok" class="btn btn-primary" data-i18n="btn_confirm">Підтвердити</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
   <script src="app.js"></script>
 </body>
 </html>
