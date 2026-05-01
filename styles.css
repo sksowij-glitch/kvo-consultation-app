@@ -686,30 +686,78 @@ textarea.text-input {
 
 /* Responsive */
 @media (max-width: 640px) {
+  .header-container {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
   .header-actions {
     gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
-  
+
+  /* Hide nickname on very small screens */
+  .user-profile {
+    display: none;
+  }
+
+  /* Make reset button text-only compact */
+  #btn-reset span {
+    display: none;
+  }
+
   .controls {
     flex-direction: column;
     align-items: stretch;
   }
-  
-  .filters, .sorting {
+
+  .filters {
     flex-direction: column;
   }
-  
+
+  .sorting {
+    flex-direction: column;
+  }
+
+  /* Make search full-width on mobile */
+  #search-input {
+    max-width: 100% !important;
+    width: 100%;
+  }
+
   .form-row {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .card-actions {
     flex-wrap: wrap;
   }
-  
+
   .dashboard {
     margin-top: 1.5rem;
+  }
+
+  .modal-content {
+    margin: 1rem;
+    max-width: calc(100vw - 2rem);
+  }
+
+  .stat-card p {
+    font-size: 2rem;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 900px) and (min-width: 641px) {
+  .nickname-input {
+    width: 80px;
+  }
+
+  #btn-reset span {
+    display: none;
   }
 }
 
