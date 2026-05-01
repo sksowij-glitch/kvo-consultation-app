@@ -1,5 +1,7 @@
 # Система заявок на консультацію
 
+[![Open in Browser](https://img.shields.io/badge/LIVE_DEMO-Open_App-success?style=for-the-badge&logo=googlechrome&logoColor=white)](https://sksowij-glitch.github.io/Kurbatov_V.O/)
+
 Вебзастосунок для створення, редагування, відправки та відстеження запитів на індивідуальні консультації з викладачами. Проєкт розроблений у межах курсової роботи з дисципліни "Розробка, аналіз вимог та тестування вебзастосунків".
 
 ## 🌟 Ключові особливості
