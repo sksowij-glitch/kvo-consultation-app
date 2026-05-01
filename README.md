@@ -1,35 +1,45 @@
-# KPI 2026 GitHub Pages App Template
+# Система заявок на консультацію
 
-Starter repository for small coursework web applications that are implemented from existing markdown requirements and deployed to GitHub Pages.
+Вебзастосунок для створення, редагування, відправки та відстеження запитів на індивідуальні консультації з викладачами.
 
-## Intended use
+## Огляд
 
-Use this repository as a template for:
-- the teacher's demo application;
-- student repositories created after requirements are already written;
-- small GitHub Pages projects that must stay within static hosting constraints.
+Цей застосунок реалізовано як Single Page Application (SPA) на базі чистого HTML, CSS та JavaScript. Він не потребує серверного бекенду та використовує `localStorage` для збереження даних у браузері.
 
-## Suggested workflow
+Система розроблена для легкого розгортання на GitHub Pages і забезпечує такі можливості:
+- Створення та редагування заявок (статус Draft).
+- Подання заявок (Submitted).
+- Імітація відповіді викладача (переведення в Confirmed або Cancelled).
+- Скидання до демо-даних для тестування.
+- Фільтрація та сортування заявок.
 
-1. Create a new repository from this template.
-2. Add the project requirements as markdown under `requirements/`.
-3. Invoke the `requirements-to-github-pages` skill inside the new repository.
-4. Let the skill:
-   - assess feasibility;
-   - choose the simplest viable stack;
-   - document SDRs;
-   - implement the app;
-   - add demo data and reset flow;
-   - update deployment files.
+## Локальний запуск
 
-## Initial repository structure
+Оскільки застосунок складається виключно зі статичних файлів, ви можете просто відкрити файл `index.html` у вашому браузері:
 
-- `requirements/` - place the markdown requirements here
-- `docs/sdr/` - software decision records
-- `data/` - seed and demo data if needed
-- `.github/workflows/` - GitHub Pages deployment workflow
+1. Склонуйте репозиторій або завантажте архів.
+2. Відкрийте файл `index.html` у Chrome, Firefox або Safari.
+3. (Опціонально) Для уникнення проблем з CORS (Cross-Origin Resource Sharing) під час завантаження демо-даних (`demo.json`), ви можете запустити локальний вебсервер. Наприклад, якщо у вас встановлений Python:
+   ```bash
+   python -m http.server 8000
+   ```
+   Або за допомогою Node.js:
+   ```bash
+   npx serve .
+   ```
+   Потім перейдіть за адресою `http://localhost:8000` (або іншим портом).
 
-## Notes
+## Архітектура
 
-This repository is intentionally minimal. It is not a finished application.
-It is a clean starting point for projects that will be generated from existing requirements.
+Архітектурні рішення (SDR) задокументовані в папці `docs/sdr/`:
+- `0001-stack-choice.md`: Вибір стеку (Vanilla JS).
+- `0002-client-storage-choice.md`: Вибір `localStorage`.
+- `0003-routing-state-and-data-model.md`: SPA та структура даних.
+
+## Деплой на GitHub Pages
+
+Цей репозиторій містить налаштований GitHub Actions workflow (`.github/workflows/pages.yml`).
+Для публікації:
+1. Переконайтеся, що ви активували GitHub Actions у налаштуваннях репозиторію.
+2. Запустіть workflow або зробіть пуш у гілку `main`.
+3. У налаштуваннях репозиторію (Settings -> Pages) переконайтеся, що джерелом вибрано GitHub Actions.
