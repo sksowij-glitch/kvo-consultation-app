@@ -370,56 +370,18 @@ function saveData() {
   renderApp();
 }
 
-function resetDemoData() {
-  const demoData = [
-    {
-      "id": "1700000000001",
-      "subject": "Електродинаміка",
-      "topic": "Допоможіть розібратися з рівняннями Максвелла",
-      "date": "2026-06-01",
-      "time": "10:30",
-      "status": "Submitted",
-      "author": "JohnDoe",
-      "createdAt": "2026-05-01T10:00:00.000Z",
-      "updatedAt": "2026-05-01T10:00:00.000Z"
-    },
-    {
-      "id": "1700000000002",
-      "subject": "Схемотехніка",
-      "topic": "Розрахунок підсилювача з урахуванням зворотного зв'язку",
-      "date": "2026-06-05",
-      "time": "14:00",
-      "status": "Confirmed",
-      "author": "Student123",
-      "createdAt": "2026-04-28T09:15:00.000Z",
-      "updatedAt": "2026-04-29T11:20:00.000Z"
-    },
-    {
-      "id": "1700000000003",
-      "subject": "Фізика НВЧ",
-      "topic": "Питання по лабораторній роботі №3",
-      "date": "2026-06-10",
-      "time": "16:45",
-      "status": "Draft",
-      "author": "",
-      "createdAt": "2026-05-01T12:00:00.000Z",
-      "updatedAt": "2026-05-01T12:00:00.000Z"
-    },
-    {
-      "id": "1700000000004",
-      "subject": "Вища математика",
-      "topic": "Не розумію тему: подвійні інтеграли",
-      "date": "2026-06-12",
-      "time": "09:00",
-      "status": "Cancelled",
-      "author": "MathGeek",
-      "createdAt": "2026-04-25T08:00:00.000Z",
-      "updatedAt": "2026-04-26T08:30:00.000Z"
-    }
-  ];
-  requests = demoData;
-  saveData();
-  showToast(t('toast_demo_loaded'), 'success');
+async function resetDemoData() {
+  try {
+    const response = await fetch('data/demo.json');
+    if (!response.ok) throw new Error('Failed to fetch demo data');
+    const demoData = await response.json();
+    requests = demoData;
+    saveData();
+    showToast(t('toast_demo_loaded'), 'success');
+  } catch (err) {
+    console.error('Error loading demo data:', err);
+    showToast('Error loading demo data', 'error');
+  }
 }
 
 // Rendering
