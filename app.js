@@ -23,15 +23,32 @@ const inpTime = document.getElementById('form-time');
 // Buttons
 const btnSaveDraft = document.getElementById('btn-save-draft');
 const btnSubmit = document.getElementById('btn-submit-request');
+const btnTheme = document.getElementById('btn-theme');
 
 // Init
 document.addEventListener('DOMContentLoaded', () => {
   loadData();
+  initTheme();
   setupEventListeners();
   renderApp();
 });
 
 // State Management
+function initTheme() {
+  const savedTheme = localStorage.getItem('consultation_theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-theme');
+  } else if (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.body.classList.add('dark-theme');
+  }
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+  const isDark = document.body.classList.contains('dark-theme');
+  localStorage.setItem('consultation_theme', isDark ? 'dark' : 'light');
+}
+
 function loadData() {
   const data = localStorage.getItem(STORAGE_KEY);
   if (data) {
@@ -44,19 +61,52 @@ function saveData() {
   renderApp();
 }
 
-async function resetDemoData() {
-  try {
-    const response = await fetch('data/demo.json');
-    if (response.ok) {
-      requests = await response.json();
-      saveData();
-    } else {
-      alert('Не вдалося завантажити демо-дані.');
+function resetDemoData() {
+  const demoData = [
+    {
+      "id": "1700000000001",
+      "subject": "Електродинаміка",
+      "topic": "Допоможіть розібратися з рівняннями Максвелла",
+      "date": "2026-06-01",
+      "time": "10:30",
+      "status": "Submitted",
+      "createdAt": "2026-05-01T10:00:00.000Z",
+      "updatedAt": "2026-05-01T10:00:00.000Z"
+    },
+    {
+      "id": "1700000000002",
+      "subject": "Схемотехніка",
+      "topic": "Розрахунок підсилювача з урахуванням зворотного зв'язку",
+      "date": "2026-06-05",
+      "time": "14:00",
+      "status": "Confirmed",
+      "createdAt": "2026-04-28T09:15:00.000Z",
+      "updatedAt": "2026-04-29T11:20:00.000Z"
+    },
+    {
+      "id": "1700000000003",
+      "subject": "Фізика НВЧ",
+      "topic": "Питання по лабораторній роботі №3",
+      "date": "2026-06-10",
+      "time": "16:45",
+      "status": "Draft",
+      "createdAt": "2026-05-01T12:00:00.000Z",
+      "updatedAt": "2026-05-01T12:00:00.000Z"
+    },
+    {
+      "id": "1700000000004",
+      "subject": "Вища математика",
+      "topic": "Не розумію тему: подвійні інтеграли",
+      "date": "2026-06-12",
+      "time": "09:00",
+      "status": "Cancelled",
+      "createdAt": "2026-04-25T08:00:00.000Z",
+      "updatedAt": "2026-04-26T08:30:00.000Z"
     }
-  } catch (error) {
-    console.error('Error loading demo data:', error);
-    alert('Помилка завантаження демо-даних.');
-  }
+  ];
+  requests = demoData;
+  saveData();
+  alert('Демо-дані успішно завантажені!');
 }
 
 // Rendering
@@ -244,6 +294,7 @@ function escapeHTML(str) {
 
 // Events
 function setupEventListeners() {
+  if (btnTheme) btnTheme.addEventListener('click', toggleTheme);
   document.getElementById('btn-new-request').addEventListener('click', () => openModal());
   document.getElementById('btn-close-modal').addEventListener('click', closeModal);
   document.getElementById('modal-overlay').addEventListener('click', closeModal);

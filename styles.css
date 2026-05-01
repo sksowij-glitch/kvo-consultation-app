@@ -27,6 +27,23 @@
   --radius: 12px;
 }
 
+body.dark-theme {
+  --bg: #111827;
+  --surface: #1F2937;
+  --text-main: #F9FAFB;
+  --text-muted: #9CA3AF;
+  --border: #374151;
+  
+  --status-draft-bg: #374151;
+  --status-submitted-bg: #78350F;
+  --status-confirmed-bg: #064E3B;
+  --status-cancelled-bg: #7F1D1D;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
